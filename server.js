@@ -13,11 +13,9 @@ app.use(cors()); //initialize
 app.use(bodyParser.json());
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/exdb', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect('mongodb://localhost:27017/exdb',);
 
+// we can use then function for console
 const db = mongoose.connection;
 db.on('error', console.error.bind(console,'MongoDB connection error:'));
 db.once('open', () => {
@@ -26,6 +24,7 @@ db.once('open', () => {
 
 // Define a simple mongoose model
 const Item = mongoose.model('Item', { name: String });
+//databse folder name item , schema name:string
 
 // Express route
 app.get('/items', async (req, res) => {
