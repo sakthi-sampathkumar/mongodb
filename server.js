@@ -11,6 +11,7 @@ const port = 5001;
 // Middleware
 app.use(cors()); //initialize
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/exdb',);
@@ -37,10 +38,14 @@ app.get('/items', async (req, res) => {
 });
   
 // Express route for handling POST requests
-app.post('/items', async (req, res) => {
+app.post('/item', async (req, res) => {
+
     try {
-      const newItem = new Item({ name: req.body.name });
-      const savedItem = await newItem.save();
+      // const newItem = new Item({  });
+      console.log(req.body.name);
+      const savedItem = await Item.create({
+        name: req.body.name
+      });
       res.json(savedItem);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
